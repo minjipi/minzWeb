@@ -1,26 +1,27 @@
-# Getting Started
+# 기능
 
-### Reference Documentation
-
-For further reference, please consider the following sections:
-
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.3/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.3/gradle-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.5.3/reference/htmlsingle/#boot-features-developing-web-applications)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.5.3/reference/htmlsingle/#using-boot-devtools)
-
-### Guides
-
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-
-### Additional Links
-
-These additional references should also help you:
-
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
-
+- 회원
+    - 🚫 회원가입
+    - 🚫 소셜 회원가입
+    - 🚫 인증(로그인, 로그아웃)
+    - 🚫 소셜 인증 
+    - 🚫 패스워드 찾기(메일로 임시 비밀번호 전달)
+    - 🚫 프로필 관리
+    - 🚫 팔로우
+    - 🚫 채팅 
+  ####
+- 게시글
+    - 🚫 좋아요
+    - 🚫 카테고리 기능 (등록 / 수정 / 삭제)
+    - 🚫 포스팅 상세
+    - 🚫 포스팅 목록 (페이징)
+    - 🚫 초안(draft) 기능 (임시 저장 기능)
+    - 🚫 포스트 정렬 커스터마이징 (드래그 & 드롭) / 최신순 / 추천순
+    - 🚫 댓글
+    - 🚫 사진, 동영상 업로드
+    - 🚫 포스트 추천
+    - 🚫 검색 기능
+    - 🚫 게시물 친구 공개 / 비공개 / 전체 공개 설정
+  ####
+- 관리자
+    - 🚫 어드민(통계)
