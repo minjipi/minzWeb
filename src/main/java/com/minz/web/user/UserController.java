@@ -1,5 +1,6 @@
 package com.minz.web.user;
 
+import com.minz.web.user.model.HomeprofileDTO;
 import com.minz.web.user.model.SignupDTO;
 import com.minz.web.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,10 @@ public class UserController {
     }
 
     @PostMapping("/homeprofile")
-    public void edit_homeprofile() {
-
+    public void edit_homeprofile(HomeprofileDTO homeprofileDTO){
+        System.out.println(homeprofileDTO.toString());
     }
+
 
     @PostMapping("/signup")
     public String signup_post(SignupDTO signupDTO) {

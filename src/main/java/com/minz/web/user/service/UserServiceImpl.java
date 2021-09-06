@@ -1,10 +1,7 @@
 package com.minz.web.user.service;
 
 import com.minz.web.user.UserRepository;
-import com.minz.web.user.model.SignupDTO;
-import com.minz.web.user.model.UserEntity;
-import com.minz.web.user.model.UserLoginReq;
-import com.minz.web.user.model.UserRole;
+import com.minz.web.user.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,6 +52,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userEntity.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
         userEntity.setNickname(signupDTO.getNickname());
         userEntity.addUserRole(UserRole.USER);
+
+        userRepository.save(userEntity);
+    }
+
+//    @Override
+//    public void edit_homeprofile(HomeprofileDTO homeprofileDTO) {
+//        UserEntity userEntity = new UserEntity(new HashSet<>());
+//
+//        userEntity.setHousingType(homeprofileDTO.getHousingType());
+//        userEntity.setHouseSize(homeprofileDTO.getHouseSize());
+//
+//        userRepository.save(userEntity);
+//    }
+
+    @Override
+    public void edit_homeprofile(String username, HomeprofileDTO homeprofileDTO) {
+
+        Optional<UserEntity> result = userRepository.findByEmail(username);
+
+        UserEntity userEntity = result.get();
+
+        userEntity.setHousingType(homeprofileDTO.getHousingType());
+        userEntity.setHouseSize(homeprofileDTO.getHouseSize());
 
         userRepository.save(userEntity);
     }
