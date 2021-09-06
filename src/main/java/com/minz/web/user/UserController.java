@@ -24,6 +24,16 @@ public class UserController {
 
     }
 
+    @GetMapping("/homeprofile")
+    public void homeprofile() {
+
+    }
+
+    @PostMapping("/homeprofile")
+    public void edit_homeprofile() {
+
+    }
+
     @PostMapping("/signup")
     public String signup_post(SignupDTO signupDTO) {
         System.out.println("-------------" + signupDTO.toString());
