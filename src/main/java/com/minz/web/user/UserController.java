@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -30,11 +32,17 @@ public class UserController {
 
     }
 
-    @PostMapping("/homeprofile")
-    public void edit_homeprofile(HomeprofileDTO homeprofileDTO){
-        System.out.println(homeprofileDTO.toString());
-    }
+    //    @PostMapping("/homeprofile")
+//    public void edit_homeprofile(HomeprofileDTO homeprofileDTO) {
+//        System.out.println(homeprofileDTO.toString());
+//    }
 
+    @PostMapping("/homeprofile")
+    public void edit_homeprofile(Principal principal, HomeprofileDTO homeprofileDTO) {
+        System.out.println(homeprofileDTO.toString());
+        String username = principal.getName();
+        userService.edit_homeprofile(username, homeprofileDTO);
+    }
 
     @PostMapping("/signup")
     public String signup_post(SignupDTO signupDTO) {
