@@ -9,8 +9,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,6 +26,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
+
+
+    // 회원가입 시, 유효성 체크
+    public Map<String, String> validateHandling(Errors errors) {
+        Map<String, String> validatorResult = new HashMap<>();
+
+        for (FieldError error : errors.getFieldErrors()) {
+            String validKeyName = String.format("valid_%s", error.getField());
+            validatorResult.put(validKeyName, error.getDefaultMessage());
+        }
+
+        return validatorResult;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -71,6 +88,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void edit_profile(String username, ProfileDTO profileDTO) {
-        
+        Optional<UserEntity> result = userRepository.findByEmail(username);
+
+        UserEntity userEntity = result.get();
+
+        userEntity.setNickname(profileDTO.getNickname());
+        userEntity.setMyURL(profileDTO.getMyURL());
+        userEntity.setSelfIntro(profileDTO.getSelfIntro());
+
+        userRepository.save(userEntity);
     }
 }

@@ -1,8 +1,17 @@
 package com.minz.web.user.model;
 
 public class ProfileDTO {
+    private String nickname;
     private String myURL;
     private String selfIntro;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public String getMyURL() {
         return myURL;
@@ -23,7 +32,8 @@ public class ProfileDTO {
     @Override
     public String toString() {
         return "ProfileDTO{" +
-                "myURL='" + myURL + '\'' +
+                "nickname='" + nickname + '\'' +
+                ", myURL='" + myURL + '\'' +
                 ", selfIntro='" + selfIntro + '\'' +
                 '}';
     }
