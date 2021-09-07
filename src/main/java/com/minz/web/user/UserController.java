@@ -51,4 +51,15 @@ public class UserController {
         return "redirect:/user/login";
     }
 
+    @GetMapping("/profile")
+    public void profile() {
+    }
+
+    @PostMapping("/profile")
+    public void edit_profile(Principal principal, HomeprofileDTO homeprofileDTO) {
+        System.out.println(homeprofileDTO.toString());
+        String username = principal.getName();
+        userService.edit_homeprofile(username, homeprofileDTO);
+    }
+
 }

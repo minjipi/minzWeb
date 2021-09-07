@@ -56,16 +56,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.save(userEntity);
     }
 
-//    @Override
-//    public void edit_homeprofile(HomeprofileDTO homeprofileDTO) {
-//        UserEntity userEntity = new UserEntity(new HashSet<>());
-//
-//        userEntity.setHousingType(homeprofileDTO.getHousingType());
-//        userEntity.setHouseSize(homeprofileDTO.getHouseSize());
-//
-//        userRepository.save(userEntity);
-//    }
-
     @Override
     public void edit_homeprofile(String username, HomeprofileDTO homeprofileDTO) {
 
