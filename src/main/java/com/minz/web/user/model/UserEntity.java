@@ -36,6 +36,26 @@ public class UserEntity {
     private String gender;
     private String socialLoginType;
 
+    @Column
+    private String myURL;
+    private String selfIntro;
+
+    public String getMyURL() {
+        return myURL;
+    }
+
+    public void setMyURL(String myURL) {
+        this.myURL = myURL;
+    }
+
+    public String getSelfIntro() {
+        return selfIntro;
+    }
+
+    public void setSelfIntro(String selfIntro) {
+        this.selfIntro = selfIntro;
+    }
+
     @CreatedDate
     private Timestamp createdDate;
 
