@@ -68,4 +68,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         userRepository.save(userEntity);
     }
+
+    @Override
+    public void edit_profile(String username, ProfileDTO profileDTO) {
+        
+    }
 }

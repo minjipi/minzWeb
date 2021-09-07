@@ -1,6 +1,7 @@
 package com.minz.web.user;
 
 import com.minz.web.user.model.HomeprofileDTO;
+import com.minz.web.user.model.ProfileDTO;
 import com.minz.web.user.model.SignupDTO;
 import com.minz.web.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +28,16 @@ public class UserController {
 
     }
 
-    @GetMapping("/homeprofile")
-    public void homeprofile() {
-
+    @PostMapping("/signup")
+    public String signup_post(SignupDTO signupDTO) {
+        System.out.println("-------------" + signupDTO.toString());
+        userService.signup(signupDTO);
+        return "redirect:/user/login";
     }
 
-    //    @PostMapping("/homeprofile")
-//    public void edit_homeprofile(HomeprofileDTO homeprofileDTO) {
-//        System.out.println(homeprofileDTO.toString());
-//    }
+    @GetMapping("/homeprofile")
+    public void homeprofile() {
+    }
 
     @PostMapping("/homeprofile")
     public void edit_homeprofile(Principal principal, HomeprofileDTO homeprofileDTO) {
@@ -44,22 +46,15 @@ public class UserController {
         userService.edit_homeprofile(username, homeprofileDTO);
     }
 
-    @PostMapping("/signup")
-    public String signup_post(SignupDTO signupDTO) {
-        System.out.println("-------------" + signupDTO.toString());
-        userService.signup(signupDTO);
-        return "redirect:/user/login";
-    }
-
     @GetMapping("/profile")
     public void profile() {
     }
 
     @PostMapping("/profile")
-    public void edit_profile(Principal principal, HomeprofileDTO homeprofileDTO) {
-        System.out.println(homeprofileDTO.toString());
+    public void edit_profile(Principal principal, ProfileDTO profileDTO) {
+        System.out.println(profileDTO.toString());
         String username = principal.getName();
-        userService.edit_homeprofile(username, homeprofileDTO);
+        userService.edit_profile(username, profileDTO);
     }
 
 }
