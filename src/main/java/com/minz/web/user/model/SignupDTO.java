@@ -1,9 +1,16 @@
 package com.minz.web.user.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+@Getter
+@Setter
+@ToString
 public class SignupDTO {
 
     @NotBlank(message = "이메일은 필수 입력값 입니다.")
@@ -18,28 +25,4 @@ public class SignupDTO {
 
     @NotBlank(message = "닉네임은 필수 입력값 입니다.")
     private String nickname;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
 }

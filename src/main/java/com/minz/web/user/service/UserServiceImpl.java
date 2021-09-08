@@ -63,13 +63,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void signup(SignupDTO signupDTO) {
-        UserEntity userEntity = new UserEntity(new HashSet<>());
+        UserEntity userEntity = UserEntity.builder()
+                .email(signupDTO.getEmail())
+                .password(passwordEncoder.encode(signupDTO.getPassword()))
+                .nickname(signupDTO.getNickname())
+                .build();
 
-        userEntity.setEmail(signupDTO.getEmail());
-        userEntity.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
-        userEntity.setNickname(signupDTO.getNickname());
         userEntity.addUserRole(UserRole.USER);
-
         userRepository.save(userEntity);
     }
 
@@ -79,6 +79,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Optional<UserEntity> result = userRepository.findByEmail(username);
 
         UserEntity userEntity = result.get();
+
 
         userEntity.setHousingType(homeprofileDTO.getHousingType());
         userEntity.setHouseSize(homeprofileDTO.getHouseSize());
