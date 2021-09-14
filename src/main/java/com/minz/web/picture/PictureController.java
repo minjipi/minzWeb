@@ -7,8 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.security.Principal;
+
+@RestController
 @RequestMapping("/picture")
 public class PictureController {
     @Autowired
@@ -20,9 +23,9 @@ public class PictureController {
     }
 
     @PostMapping("/upload")
-    public String upload_post(PictureDTO pictureDTO) {
+    public String upload_post(Principal principal, PictureDTO pictureDTO) {
         System.out.println(pictureDTO.toString());
-        pictureService.upload((pictureDTO));
+        pictureService.upload(principal.getName(), pictureDTO);
 
         return "redirect:/picture/upload";
     }

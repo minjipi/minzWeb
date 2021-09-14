@@ -25,7 +25,6 @@ public class PictureEntity {
     @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "userIdx", insertable= false, updatable = false)
 
-
     private UserEntity userIdx;
     private String pictureURL;
     private String housingType;

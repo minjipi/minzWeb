@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface PictureService {
-    public void upload(PictureDTO pictureDTO);
+    public void upload(String username, PictureDTO pictureDTO);
 }
