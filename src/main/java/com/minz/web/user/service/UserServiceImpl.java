@@ -4,6 +4,7 @@ import com.minz.web.user.UserRepository;
 import com.minz.web.user.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,10 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,23 +40,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         Optional<UserEntity> result = userRepository.findByEmail(username);
 
         UserEntity userEntity = result.get();
         System.out.println("loadUserByUserName: " + userEntity.toString());
 
-        UserLoginReq userLoginReq = new UserLoginReq(
-                userEntity.getEmail(),
-                userEntity.getPassword(),
-                userEntity.getRoleSet()
-                        .stream()
-                        .map(role -> new SimpleGrantedAuthority(
-                                "ROLE_" + role.name()
-                        )).collect(Collectors.toSet())
-        );
 
-        return userLoginReq;
+        return new User(userEntity.getEmail(), userEntity.getPassword(), new ArrayList<>());
     }
 
     @Override

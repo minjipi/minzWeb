@@ -1,10 +1,16 @@
 package com.minz.web.user;
 
-import com.minz.web.user.model.HomeprofileDTO;
-import com.minz.web.user.model.ProfileDTO;
-import com.minz.web.user.model.SignupDTO;
+import com.minz.web.config.JwtTokenUtil;
+import com.minz.web.user.model.*;
 import com.minz.web.user.service.UserService;
+import com.minz.web.user.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -19,7 +25,13 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    UserServiceImpl userService;
 
 //    @GetMapping("/login")
 //    public void login() {
@@ -29,6 +41,29 @@ public class UserController {
 //    public void signup_get() {
 //
 //    }
+
+    @PostMapping(value = "/login")
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody UserLoginReq userLoginReq) throws Exception {
+        authenticate(userLoginReq.getEmail(), userLoginReq.getPassword());
+
+        System.out.println("controller before loadUserByUsername");
+        final UserDetails userDetails = userService
+                .loadUserByUsername(userLoginReq.getEmail());
+        System.out.println("controller after loadUserByUsername");
+        final String token = jwtTokenUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    private void authenticate(String username, String password) throws Exception {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        } catch (DisabledException e) {
+            throw new Exception("USER_DISABLED", e);
+        } catch (BadCredentialsException e) {
+            throw new Exception("INVALID_CREDENTIALS", e);
+        }
+    }
 
     @PostMapping("/signup")
     public String signup_post(@Valid @RequestBody SignupDTO signupDTO, Errors errors, Model model) {

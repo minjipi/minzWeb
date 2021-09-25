@@ -1,18 +1,21 @@
 package com.minz.web.user.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class UserLoginReq extends User {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserLoginReq implements Serializable {
     String email;
     String password;
-
-    public UserLoginReq(String username, String password, Collection<?
-            extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
-        this.email = username;
-    }
 }
