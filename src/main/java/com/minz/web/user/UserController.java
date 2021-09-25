@@ -47,7 +47,7 @@ public class UserController {
         authenticate(userLoginReq.getEmail(), userLoginReq.getPassword());
 
         System.out.println("controller before loadUserByUsername");
-        final UserDetails userDetails = userService
+        final UserLoginRes userDetails = (UserLoginRes) userService
                 .loadUserByUsername(userLoginReq.getEmail());
         System.out.println("controller after loadUserByUsername");
         final String token = jwtTokenUtil.generateToken(userDetails);

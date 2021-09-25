@@ -43,10 +43,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Optional<UserEntity> result = userRepository.findByEmail(username);
 
         UserEntity userEntity = result.get();
-        System.out.println("loadUserByUserName: " + userEntity.toString());
 
-
-        return new User(userEntity.getEmail(), userEntity.getPassword(), new ArrayList<>());
+        return new UserLoginRes(userEntity.getIdx(), userEntity.getEmail(), userEntity.getPassword(), new ArrayList<>());
     }
 
     @Override
