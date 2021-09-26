@@ -19,14 +19,13 @@ public class PictureServiceImpl implements PictureService{
     UserRepository userRepository;
 
     @Override
-    public void upload(String username, PictureDTO pictureDTO) {
+    public void upload(String idx, PictureDTO pictureDTO) {
         System.out.println("픽쳐 서비스의 upload 메소드가 호출되었다.");
         PictureEntity pictureEntity = new PictureEntity();
 
-        Optional<UserEntity> result = userRepository.findByEmail(username);
-        UserEntity userEntity = result.get();
+        UserEntity userEntity = new UserEntity();
 
-        userEntity.setIdx(userEntity.getIdx());
+        userEntity.setIdx(Integer.parseInt(idx));
 
         pictureEntity.setUserIdx(userEntity);
         pictureEntity.setPictureURL(pictureDTO.getPictureURL());

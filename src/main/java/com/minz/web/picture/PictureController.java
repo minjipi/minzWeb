@@ -1,13 +1,11 @@
 package com.minz.web.picture;
 
+import com.minz.web.config.JwtTokenUtil;
 import com.minz.web.picture.model.PictureDTO;
 import com.minz.web.picture.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -17,15 +15,15 @@ public class PictureController {
     @Autowired
     PictureService pictureService;
 
-    @GetMapping("/upload")
-    public void upload_get() {
-
-    }
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("/upload")
-    public String upload_post(Principal principal, PictureDTO pictureDTO) {
+    public String upload_post(@RequestHeader(name="Authorization") String token, PictureDTO pictureDTO) {
         System.out.println(pictureDTO.toString());
-        pictureService.upload(principal.getName(), pictureDTO);
+
+        String idx= jwtTokenUtil.getIdxFromToken(token.substring(7));
+        pictureService.upload(idx, pictureDTO);
 
         return "redirect:/picture/upload";
     }
