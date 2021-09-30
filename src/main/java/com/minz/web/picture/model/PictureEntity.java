@@ -26,7 +26,6 @@ public class PictureEntity {
 //    @JoinColumn(name = "userIdx", insertable= false, updatable = false)
 
     private UserEntity userIdx;
-    private String pictureURL;
     private String housingType;
     private String houseSize;
     private String style;

@@ -18,12 +18,21 @@ public class PictureController {
     @Autowired
     JwtTokenUtil jwtTokenUtil;
 
+//    @PostMapping("/upload")
+//    public String upload_post(@RequestHeader(name="Authorization") String token, PictureDTO pictureDTO) {
+//        System.out.println(pictureDTO.toString());
+//
+//        String idx= jwtTokenUtil.getIdxFromToken(token.substring(7));
+//        pictureService.upload(idx, pictureDTO);
+//
+//        return "redirect:/picture/upload";
+//    }
+
     @PostMapping("/upload")
-    public String upload_post(@RequestHeader(name="Authorization") String token, PictureDTO pictureDTO) {
+    public String upload_post(PictureDTO pictureDTO) {
         System.out.println(pictureDTO.toString());
 
-        String idx= jwtTokenUtil.getIdxFromToken(token.substring(7));
-        pictureService.upload(idx, pictureDTO);
+        pictureService.upload("1", pictureDTO);
 
         return "redirect:/picture/upload";
     }

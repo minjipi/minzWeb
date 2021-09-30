@@ -1,6 +1,9 @@
 package com.minz.web.picture.service;
 
+import com.minz.web.picture.ImageFileRepository;
 import com.minz.web.picture.PictureRepository;
+import com.minz.web.picture.model.ImageFileDTO;
+import com.minz.web.picture.model.ImageFileEntity;
 import com.minz.web.picture.model.PictureDTO;
 import com.minz.web.picture.model.PictureEntity;
 import com.minz.web.user.UserRepository;
@@ -8,6 +11,9 @@ import com.minz.web.user.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -16,25 +22,25 @@ public class PictureServiceImpl implements PictureService{
     PictureRepository pictureRepository;
 
     @Autowired
+    ImageFileRepository imageFileRepository;
+    @Autowired
     UserRepository userRepository;
 
+
+    @Transactional
     @Override
-    public void upload(String idx, PictureDTO pictureDTO) {
-        System.out.println("픽쳐 서비스의 upload 메소드가 호출되었다.");
-        PictureEntity pictureEntity = new PictureEntity();
+    public int upload(String idx, PictureDTO pictureDTO) {
 
-        UserEntity userEntity = new UserEntity();
-
-        userEntity.setIdx(Integer.parseInt(idx));
-
-        pictureEntity.setUserIdx(userEntity);
-        pictureEntity.setPictureURL(pictureDTO.getPictureURL());
-        pictureEntity.setHouseSize(pictureDTO.getHouseSize());
-        pictureEntity.setHousingType(pictureDTO.getHousingType());
-        pictureEntity.setPlace(pictureDTO.getPlace());
-        pictureEntity.setStyle(pictureDTO.getStyle());
+        Map<String, Object> entityMap = dtoToEntity(idx, pictureDTO);
+        PictureEntity pictureEntity = (PictureEntity) entityMap.get("pictureEntity");
+        List<ImageFileEntity> imageFileEntities = (List<ImageFileEntity>) entityMap.get("imgList");
 
         pictureRepository.save(pictureEntity);
 
+        imageFileEntities.forEach(imageFileEntity -> {
+            imageFileRepository.save(imageFileEntity);
+        });
+
+        return pictureEntity.getIdx();
     }
 }

@@ -27,6 +27,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.2'
+    implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.12'
 }
 
 test {
