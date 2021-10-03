@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,9 +24,6 @@ public class PictureServiceImpl implements PictureService{
 
     @Autowired
     ImageFileRepository imageFileRepository;
-    @Autowired
-    UserRepository userRepository;
-
 
     @Transactional
     @Override
@@ -42,5 +40,32 @@ public class PictureServiceImpl implements PictureService{
         });
 
         return pictureEntity.getIdx();
+    }
+
+    @Override
+    public String mypost(String idx){
+        UserEntity userEntity = UserEntity.builder().idx(Integer.parseInt(idx)).build();
+
+
+        List<Object[]> result = pictureRepository.getMyPictureWithAll(userEntity);
+
+        List<PictureEntity> pictureEntities = new ArrayList<>();
+        List<ImageFileEntity> imageFileEntities = new ArrayList<>();
+
+        result.forEach(arr -> {
+            PictureEntity pictureEntity = (PictureEntity)arr[0];
+            ImageFileEntity imageFileEntity = (ImageFileEntity)arr[1];
+
+            pictureEntities.add(pictureEntity);
+            System.out.println("pe : " + pictureEntity.getIdx());
+
+            imageFileEntities.add(imageFileEntity);
+            System.out.println("in : " + imageFileEntity.getImgName());
+        });
+
+
+
+
+        return "service";
     }
 }

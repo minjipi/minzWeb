@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
 public interface PictureService {
-    public int upload(String username, PictureDTO pictureDTO);
+    public int upload(String idx, PictureDTO pictureDTO);
+    public String mypost(String idx);
 
     default PictureDTO entitiesToDTO(PictureEntity pictureEntity, List<ImageFileEntity> imageFileEntities){
         PictureDTO pictureDTO = PictureDTO.builder()

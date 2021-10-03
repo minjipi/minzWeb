@@ -32,8 +32,16 @@ public class PictureController {
     public String upload_post(PictureDTO pictureDTO) {
         System.out.println(pictureDTO.toString());
 
-        pictureService.upload("1", pictureDTO);
+        pictureService.upload("2", pictureDTO);
 
         return "redirect:/picture/upload";
+    }
+
+
+    @GetMapping("/mypost")
+    public String mypost(@RequestHeader(name="Authorization") String token){
+        String idx= jwtTokenUtil.getIdxFromToken(token.substring(7));
+        pictureService.mypost(idx);
+        return "test";
     }
 }
