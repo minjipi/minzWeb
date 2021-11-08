@@ -1,13 +1,11 @@
 package com.minz.web.picture.service;
 
-import com.minz.web.picture.ImageFileRepository;
-import com.minz.web.picture.PictureRepository;
-import com.minz.web.picture.model.ImageFileDTO;
+import com.minz.web.picture.repository.ImageFileRepository;
+import com.minz.web.picture.repository.PictureRepository;
 import com.minz.web.picture.model.ImageFileEntity;
 import com.minz.web.picture.model.PictureDTO;
 import com.minz.web.picture.model.PictureEntity;
-import com.minz.web.user.UserRepository;
-import com.minz.web.user.model.UserEntity;
+import com.minz.web.user.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +13,6 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class PictureServiceImpl implements PictureService{
@@ -64,8 +61,25 @@ public class PictureServiceImpl implements PictureService{
         });
 
 
-
-
         return "service";
     }
+
+    @Override
+    public List<PictureDTO> getAll(){
+        List<Object[]> result = pictureRepository.getAll();
+        List<PictureDTO> pictureDTOList = new ArrayList<>();
+
+        for(int i=0; i<result.size(); i++) {
+            PictureEntity pictureEntity = (PictureEntity)result.get(i)[0];
+            List<ImageFileEntity> imageFileEntityList = new ArrayList<>();
+
+            ImageFileEntity imageFileEtity = (ImageFileEntity)result.get(i)[1];
+            imageFileEntityList.add(imageFileEtity);
+
+            pictureDTOList.add(entitiesToDTO(pictureEntity, imageFileEntityList));
+        }
+
+        return pictureDTOList;
+    }
+
 }

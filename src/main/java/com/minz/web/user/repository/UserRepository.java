@@ -1,6 +1,6 @@
-package com.minz.web.user;
+package com.minz.web.user.repository;
 
-import com.minz.web.user.model.UserEntity;
+import com.minz.web.user.entity.UserEntity;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package com.minz.web.user.model;
+package com.minz.web.user.dto;
 
 import java.io.Serializable;
 
@@ -14,4 +14,5 @@ public class JwtResponse implements Serializable {
     public String getToken() {
         return this.jwttoken;
     }
+    
 }

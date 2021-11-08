@@ -1,8 +1,7 @@
-package com.minz.web.user;
+package com.minz.web.user.controller;
 
 import com.minz.web.config.JwtTokenUtil;
-import com.minz.web.user.model.*;
-import com.minz.web.user.service.UserService;
+import com.minz.web.user.dto.*;
 import com.minz.web.user.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -44,20 +42,18 @@ public class UserController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody UserLoginReq userLoginReq) throws Exception {
-        authenticate(userLoginReq.getEmail(), userLoginReq.getPassword());
 
-        System.out.println("controller before loadUserByUsername");
-        final UserLoginRes userDetails = (UserLoginRes) userService
-                .loadUserByUsername(userLoginReq.getEmail());
-        System.out.println("controller after loadUserByUsername");
-        final String token = jwtTokenUtil.generateToken(userDetails);
+        Authentication authentication = authenticate(userLoginReq.getEmail(), userLoginReq.getPassword());
+        UserLoginRes userLoginRes = (UserLoginRes) authentication.getPrincipal();
+
+        final String token = jwtTokenUtil.generateToken(userLoginRes);
 
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
-    private void authenticate(String username, String password) throws Exception {
+    private Authentication authenticate(String username, String password) throws Exception {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {

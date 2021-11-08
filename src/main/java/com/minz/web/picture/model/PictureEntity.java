@@ -1,6 +1,6 @@
 package com.minz.web.picture.model;
 
-import com.minz.web.user.model.UserEntity;
+import com.minz.web.user.entity.UserEntity;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.annotation.CreatedDate;

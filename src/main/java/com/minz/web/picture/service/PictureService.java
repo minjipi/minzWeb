@@ -4,8 +4,7 @@ import com.minz.web.picture.model.ImageFileDTO;
 import com.minz.web.picture.model.ImageFileEntity;
 import com.minz.web.picture.model.PictureDTO;
 import com.minz.web.picture.model.PictureEntity;
-import com.minz.web.user.model.UserEntity;
-import org.springframework.stereotype.Service;
+import com.minz.web.user.entity.UserEntity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.stream.Collectors;
 public interface PictureService {
     public int upload(String idx, PictureDTO pictureDTO);
     public String mypost(String idx);
+    public List<PictureDTO> getAll();
 
     default PictureDTO entitiesToDTO(PictureEntity pictureEntity, List<ImageFileEntity> imageFileEntities){
         PictureDTO pictureDTO = PictureDTO.builder()

@@ -1,15 +1,12 @@
-package com.minz.web.user.model;
+package com.minz.web.user.dto;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 @Getter
 @Setter

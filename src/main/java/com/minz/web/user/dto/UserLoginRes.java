@@ -1,4 +1,4 @@
-package com.minz.web.user.model;
+package com.minz.web.user.dto;
 
 
 import lombok.Getter;

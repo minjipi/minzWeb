@@ -1,5 +1,6 @@
-package com.minz.web.user.model;
+package com.minz.web.user.entity;
 
+import com.minz.web.user.dto.UserRole;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.annotation.CreatedDate;

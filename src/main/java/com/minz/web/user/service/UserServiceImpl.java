@@ -1,10 +1,9 @@
 package com.minz.web.user.service;
 
-import com.minz.web.user.UserRepository;
-import com.minz.web.user.model.*;
+import com.minz.web.user.repository.UserRepository;
+import com.minz.web.user.entity.*;
+import com.minz.web.user.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,7 +13,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {

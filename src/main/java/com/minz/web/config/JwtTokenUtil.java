@@ -1,6 +1,6 @@
 package com.minz.web.config;
 
-import com.minz.web.user.model.UserLoginRes;
+import com.minz.web.user.dto.UserLoginRes;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -1,4 +1,4 @@
-package com.minz.web.picture;
+package com.minz.web.picture.repository;
 
 import com.minz.web.picture.model.ImageFileEntity;
 import com.minz.web.picture.model.PictureEntity;
