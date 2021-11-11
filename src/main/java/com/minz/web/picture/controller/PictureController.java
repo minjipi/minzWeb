@@ -51,6 +51,6 @@ public class PictureController {
     @ResponseBody
     @GetMapping("/list")
     public ResponseEntity<List<PictureDTO>> list(){
-        return new ResponseEntity<List<PictureDTO>>(pictureService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<List<PictureDTO>>(pictureService.getAllWithUser(), HttpStatus.OK);
     }
 }

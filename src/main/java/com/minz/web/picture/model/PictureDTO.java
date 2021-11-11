@@ -1,5 +1,6 @@
 package com.minz.web.picture.model;
 
+import com.minz.web.user.dto.ProfileDTO;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -17,4 +18,5 @@ public class PictureDTO {
     private String houseSize; //평수
     private String style; //스타일
     private String place; //공간. 필수
+    private ProfileDTO profileDTO;
 }

@@ -4,6 +4,7 @@ import com.minz.web.picture.model.ImageFileDTO;
 import com.minz.web.picture.model.ImageFileEntity;
 import com.minz.web.picture.model.PictureDTO;
 import com.minz.web.picture.model.PictureEntity;
+import com.minz.web.user.dto.ProfileDTO;
 import com.minz.web.user.entity.UserEntity;
 
 import java.util.HashMap;
@@ -15,8 +16,37 @@ public interface PictureService {
     public int upload(String idx, PictureDTO pictureDTO);
     public String mypost(String idx);
     public List<PictureDTO> getAll();
+    public List<PictureDTO> getAllWithUser();
 
+    default PictureDTO entitiesToDTOWithUser(PictureEntity pictureEntity, List<ImageFileEntity> imageFileEntities, UserEntity userEntity){
+        ProfileDTO profileDTO = ProfileDTO.builder()
+                .nickname(userEntity.getNickname())
+                .myURL(userEntity.getMyURL())
+                .selfIntro(userEntity.getSelfIntro())
+                .build();
+
+        PictureDTO pictureDTO = PictureDTO.builder()
+                .housingType(pictureEntity.getHousingType())
+                .houseSize(pictureEntity.getHouseSize())
+                .style(pictureEntity.getStyle())
+                .place(pictureEntity.getPlace())
+                .profileDTO(profileDTO)
+                .build();
+
+        List<ImageFileDTO> imageFileDTOS= imageFileEntities.stream().map(imageFile -> {
+            return ImageFileDTO.builder().imgName(imageFile.getImgName())
+                    .path(imageFile.getPath())
+                    .uuid(imageFile.getUuid())
+                    .build();
+        }).collect(Collectors.toList());
+
+        pictureDTO.setImageDTOList(imageFileDTOS);
+
+        return pictureDTO;
+
+    }
     default PictureDTO entitiesToDTO(PictureEntity pictureEntity, List<ImageFileEntity> imageFileEntities){
+
         PictureDTO pictureDTO = PictureDTO.builder()
                 .housingType(pictureEntity.getHousingType())
                 .houseSize(pictureEntity.getHouseSize())

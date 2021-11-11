@@ -81,5 +81,25 @@ public class PictureServiceImpl implements PictureService{
 
         return pictureDTOList;
     }
+    public List<PictureDTO> getAllWithUser(){
+        List<Object[]> result = pictureRepository.getAllWithUser();
+        List<PictureDTO> pictureDTOList = new ArrayList<>();
+
+        for(int i=0; i<result.size(); i++) {
+            PictureEntity pictureEntity = (PictureEntity)result.get(i)[0];
+            List<ImageFileEntity> imageFileEntityList = new ArrayList<>();
+
+            // 이미지가 하나만 되고있음... 여러장이면 반복문으로 처리해야함
+            ImageFileEntity imageFileEtity = (ImageFileEntity)result.get(i)[1];
+            imageFileEntityList.add(imageFileEtity);
+
+            UserEntity userEntity = (UserEntity)result.get(i)[2];
+
+            pictureDTOList.add(entitiesToDTOWithUser(pictureEntity, imageFileEntityList, userEntity));
+        }
+
+        return pictureDTOList;
+    }
+
 
 }

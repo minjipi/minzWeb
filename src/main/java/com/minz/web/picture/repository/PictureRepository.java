@@ -13,4 +13,7 @@ public interface PictureRepository extends JpaRepository<PictureEntity, Integer>
 
     @Query("SELECT pe, ife FROM PictureEntity pe left outer join ImageFileEntity  ife on ife.pictureIdx = pe")
     List<Object[]> getAll();
+
+    @Query("SELECT pe, ife, usere FROM PictureEntity pe left outer join ImageFileEntity ife on ife.pictureIdx = pe join UserEntity usere on pe.userIdx=usere")
+    List<Object[]> getAllWithUser();
 }
